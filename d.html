@@ -1,0 +1,205 @@
+<html>
+<head>
+    <title>SEO Dashboard</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+            const [activeNav, setActiveNav] = useState('dashboard');
+            const [darkMode, setDarkMode] = useState(false);
+
+            const navItems = [
+                { id: 'dashboard', label: 'Dashboard', icon: 'fas fa-tachometer-alt' },
+                { id: 'ai-recommendations', label: 'AI Recommendations', icon: 'fas fa-robot' },
+                { id: 'keyword-research', label: 'Keyword Research', icon: 'fas fa-key' },
+                { id: 'serp-analysis', label: 'SERP Analysis', icon: 'fas fa-chart-line' },
+                { id: 'competitors', label: 'Competitors', icon: 'fas fa-users' },
+                { id: 'rank-tracking', label: 'Rank Tracking', icon: 'fas fa-chart-bar' },
+                { id: 'alerts', label: 'Alerts', icon: 'fas fa-bell' },
+                { id: 'automation', label: 'Automation', icon: 'fas fa-cogs' },
+                { id: 'settings', label: 'Settings', icon: 'fas fa-cog' },
+            ];
+
+            const recentActivity = [
+                { id: 1, action: 'New competitor detected: example.com', time: '2 hours ago' },
+                { id: 2, action: 'Keyword "digital marketing" up by 5 positions', time: '4 hours ago' },
+                { id: 3, action: 'Site audit completed', time: '6 hours ago' },
+                { id: 4, action: 'New backlink detected from blog.example.com', time: '8 hours ago' },
+            ];
+
+            const pendingTasks = [
+                { id: 1, task: 'Optimize meta descriptions for product pages', priority: 'High' },
+                { id: 2, task: 'Review competitor backlink strategy', priority: 'Medium' },
+                { id: 3, task: 'Update content on homepage', priority: 'Low' },
+            ];
+
+            const keywordTrends = [
+                { id: 1, keyword: 'SEO tips', position: 3, change: '+1' },
+                { id: 2, keyword: 'digital marketing', position: 5, change: '+2' },
+                { id: 3, keyword: 'content strategy', position: 8, change: '-1' },
+                { id: 4, keyword: 'backlink building', position: 12, change: '0' },
+            ];
+
+            return (
+                <div className={`flex h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
+                    <aside className={`w-64 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md`}>
+                        <div className="p-6">
+                            <h1 className="text-2xl font-bold">SEO Dashboard</h1>
+                        </div>
+                        <nav className="mt-6">
+                            <ul>
+                                {navItems.map(({ id, label, icon }) => (
+                                    <li key={id} className={`flex items-center p-4 cursor-pointer ${activeNav === id ? 'text-blue-600 bg-blue-100' : ''}`} onClick={() => setActiveNav(id)}>
+                                        <i className={`${icon} mr-3`}></i>
+                                        <span>{label}</span>
+                                    </li>
+                                ))}
+                                <li className="flex items-center p-4 cursor-pointer" onClick={() => setDarkMode(!darkMode)}>
+                                    <i className="fas fa-moon mr-3"></i>
+                                    <span>Dark Mode</span>
+                                </li>
+                            </ul>
+                        </nav>
+                    </aside>
+                    <main className="flex-1 p-6">
+                        {activeNav === 'dashboard' && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                    <h2 className="text-xl font-bold">Site Health Score</h2>
+                                    <p className="text-4xl font-bold text-green-600">85/100</p>
+                                    <p className="text-green-600">↑ 2 points since last week</p>
+                                </div>
+                                <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                    <h2 className="text-xl font-bold">Keywords Tracked</h2>
+                                    <p className="text-4xl font-bold text-blue-600">147</p>
+                                    <p className="text-blue-600">12 in top 3 positions</p>
+                                </div>
+                                <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                    <h2 className="text-xl font-bold">Total Backlinks</h2>
+                                    <p className="text-4xl font-bold text-blue-600">1,284</p>
+                                    <p className="text-green-600">↑ 23 new this month</p>
+                                </div>
+                                <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md col-span-1 md:col-span-2 lg:col-span-3`}>
+                                    <h2 className="text-xl font-bold">Keyword Ranking Trends</h2>
+                                    <table className="w-full mt-4">
+                                        <thead>
+                                            <tr>
+                                                <th className="text-left">Keyword</th>
+                                                <th className="text-left">Position</th>
+                                                <th className="text-left">Change</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {keywordTrends.map(trend => (
+                                                <tr key={trend.id}>
+                                                    <td className="py-2">{trend.keyword}</td>
+                                                    <td className="py-2">{trend.position}</td>
+                                                    <td className={`py-2 ${trend.change.startsWith('+') ? 'text-green-600' : trend.change.startsWith('-') ? 'text-red-600' : 'text-gray-600'}`}>{trend.change}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md col-span-1 md:col-span-2 lg:col-span-3`}>
+                                    <h2 className="text-xl font-bold">Recent Activity</h2>
+                                    <ul className="list-disc pl-6">
+                                        {recentActivity.map(activity => (
+                                            <li key={activity.id}>
+                                                <p className="text-sm font-medium">{activity.action}</p>
+                                                <p className="text-xs text-gray-500">{activity.time}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md col-span-1 md:col-span-2 lg:col-span-3`}>
+                                    <h2 className="text-xl font-bold">Pending Tasks</h2>
+                                    <ul className="list-disc pl-6">
+                                        {pendingTasks.map(task => (
+                                            <li key={task.id} className="mb-2">
+                                                <p className="text-sm font-medium inline">{task.task}</p>
+                                                <span className={`ml-2 text-xs px-2 py-1 rounded-full ${task.priority === 'High' ? 'bg-red-100 text-red-600' : task.priority === 'Medium' ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'}`}>
+                                                    {task.priority} Priority
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
+                        {activeNav === 'ai-recommendations' && (
+                            <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                <h2 className="text-xl font-bold">AI-Driven SEO Recommendations</h2>
+                                <ul className="list-disc pl-6">
+                                    <li>Optimize meta descriptions for product pages</li>
+                                    <li>Acquire backlinks from high-authority sites</li>
+                                    <li>Conduct a comprehensive site audit</li>
+                                </ul>
+                                <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded">Delegate to SEO Consultant</button>
+                            </div>
+                        )}
+                        {activeNav === 'keyword-research' && (
+                            <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                <h2 className="text-xl font-bold">Keyword Research Tool</h2>
+                                <p>Analyze keywords based on competitors, Google-related terms, and relevance to user content.</p>
+                                <p>Rank keywords based on metrics like search volume, ad value, and difficulty.</p>
+                                <p>Enable keyword comparison with competitors.</p>
+                            </div>
+                        )}
+                        {activeNav === 'serp-analysis' && (
+                            <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                <h2 className="text-xl font-bold">SERP Analysis</h2>
+                                <p>Integrate data from Moz and SEMRush APIs for detailed SERP analysis.</p>
+                                <p>Display results in an easy-to-read format, with emphasis on metrics like domain authority and backlink counts.</p>
+                            </div>
+                        )}
+                        {activeNav === 'competitors' && (
+                            <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                <h2 className="text-xl font-bold">Competitive Analysis</h2>
+                                <p>Analyze and compare competitor websites on factors like keyword targeting, backlinks, and content structure.</p>
+                                <p>Offer strategic suggestions based on competitor success.</p>
+                            </div>
+                        )}
+                        {activeNav === 'rank-tracking' && (
+                            <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                <h2 className="text-xl font-bold">Rank Tracking & Reporting</h2>
+                                <p>Display changes in keyword positions over time.</p>
+                                <p>Allow users to download or view performance reports on a weekly basis.</p>
+                            </div>
+                        )}
+                        {activeNav === 'alerts' && (
+                            <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                <h2 className="text-xl font-bold">Custom Alerts</h2>
+                                <p>Allow users to set up personalized notifications.</p>
+                                <p>Provide real-time alerts on key SEO changes and insights.</p>
+                            </div>
+                        )}
+                        {activeNav === 'automation' && (
+                            <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                <h2 className="text-xl font-bold">SEO Task Automation</h2>
+                                <p>Automate tasks like site audits and backlink checks.</p>
+                                <p>Provide a “history” section that logs all automated tasks and their results.</p>
+                            </div>
+                        )}
+                        {activeNav === 'settings' && (
+                            <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded-lg shadow-md`}>
+                                <h2 className="text-xl font-bold">Settings</h2>
+                                <p>Manage your account settings and preferences.</p>
+                            </div>
+                        )}
+                    </main>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
