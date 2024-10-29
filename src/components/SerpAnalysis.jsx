@@ -58,20 +58,8 @@ const SerpAnalysis = ({ activeNav }) => {
     const normalizedWebsite = normalizeWebsiteUrl(website);
     console.log('Searching SERP for:', query, 'in', selectedCountryCode);
 
-    //const apiKey = 'be88bce1f01b111804b361e68da015ec83ae2cf822a80f4635f7c70cd5806e41'; // Replace with your actual API key
-    //const url = `https://serpapi.com/search.json?api_key=${apiKey}&q=${encodeURIComponent(query)}&gl=${selectedCountryCode}&hl=en`;
-
-    const apiKey = 'be88bce1f01b111804b361e68da015ec83ae2cf822a80f4635f7c70cd5806e41';
-const url = `https://serpapi.com/search.json?api_key=${apiKey}&q=${encodeURIComponent(query)}&gl=${selectedCountryCode}&hl=en`;
-const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-
-fetch(proxyUrl)
-  .then(response => response.json())
-  .then(data => {
-    const parsedData = JSON.parse(data.contents); // Parse data to get original response
-    console.log(parsedData);
-  })
-  .catch(error => console.error('Error:', error));
+    const apiKey = 'be88bce1f01b111804b361e68da015ec83ae2cf822a80f4635f7c70cd5806e41'; // Replace with your actual API key
+    const url = `https://cors-anywhere.herokuapp.com/https://serpapi.com/search.json?api_key=${apiKey}&q=${encodeURIComponent(query)}&gl=${selectedCountryCode}&hl=en`;
 
     setLoading(true);
     setWebsitePosition(null); // Reset position before fetching results
