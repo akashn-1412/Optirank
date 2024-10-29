@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const SerpAnalysis = ({ activeNav }) => {
   const [locationInput, setLocationInput] = useState('');
   const [website, setWebsite] = useState('');
-  const [query, setQuery] = useState(''); // Ensure this is only declared once
+  const [query, setQuery] = useState('');
   const [locations, setLocations] = useState([]);
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [selectedCountryCode, setSelectedCountryCode] = useState('');
@@ -13,7 +13,6 @@ const SerpAnalysis = ({ activeNav }) => {
   const [websitePosition, setWebsitePosition] = useState(null); // Track website position
 
   useEffect(() => {
-    // Fetch country data for location input
     fetch('https://restcountries.com/v3.1/all')
       .then((response) => response.json())
       .then((data) => {
@@ -27,7 +26,6 @@ const SerpAnalysis = ({ activeNav }) => {
   }, []);
 
   useEffect(() => {
-    // Filter locations based on user input
     if (locationInput) {
       const filtered = locations.filter((loc) =>
         loc.name.toLowerCase().includes(locationInput.toLowerCase())
@@ -39,10 +37,14 @@ const SerpAnalysis = ({ activeNav }) => {
   }, [locationInput, locations]);
 
   const normalizeWebsiteUrl = (url) => {
+    // Remove whitespace and convert to lowercase
     url = url.trim().toLowerCase();
+
+    // Add protocol if not present
     if (!/^https?:\/\//.test(url)) {
       url = 'https://' + url;
     }
+
     return url;
   };
 
@@ -52,13 +54,15 @@ const SerpAnalysis = ({ activeNav }) => {
       return;
     }
 
+    // Normalize the website URL before using it
     const normalizedWebsite = normalizeWebsiteUrl(website);
     console.log('Searching SERP for:', query, 'in', selectedCountryCode);
 
-    setLoading(true);
-    setWebsitePosition(null);
+    const apiKey = 'be88bce1f01b111804b361e68da015ec83ae2cf822a80f4635f7c70cd5806e41'; // Replace with your actual API key
+    const url = `https://thingproxy.freeboard.io/fetch/https://serpapi.com/search.json?api_key=${apiKey}&q=${encodeURIComponent(query)}&gl=${selectedCountryCode}&hl=en`;
 
-    const url = `http://127.0.0.1:3000/?query=${encodeURIComponent(query)}&location=${encodeURIComponent(selectedCountryCode)}&website=${encodeURIComponent(normalizedWebsite)}`;
+    setLoading(true);
+    setWebsitePosition(null); // Reset position before fetching results
 
     fetch(url)
       .then((response) => {
@@ -71,17 +75,19 @@ const SerpAnalysis = ({ activeNav }) => {
         setResults(data);
         setError('');
 
+        // Normalize the website URL for comparison
         const normalizedResultWebsite = new URL(normalizedWebsite).hostname.replace(/^www\./, '');
 
+        // Find the position of the entered website in the SERP results
         const position = data.organic_results.findIndex((result) => {
           const resultLink = new URL(result.link).hostname.replace(/^www\./, '');
           return resultLink === normalizedResultWebsite;
         });
 
         if (position !== -1) {
-          setWebsitePosition(position + 1);
+          setWebsitePosition(position + 1); // Store the position in state
         } else {
-          setWebsitePosition(null);
+          setWebsitePosition(null); // Not found
         }
       })
       .catch((error) => {
@@ -115,7 +121,7 @@ const SerpAnalysis = ({ activeNav }) => {
                     <li
                       key={loc.code}
                       className="p-2 cursor-pointer hover:bg-gray-100"
-                      onMouseDown={() => {
+                      onClick={() => {
                         setLocationInput(loc.name);
                         setSelectedCountryCode(loc.code);
                         setFilteredLocations([]);
@@ -150,7 +156,7 @@ const SerpAnalysis = ({ activeNav }) => {
               disabled={loading}
             >
               {loading ? (
-                <span className="loader"></span>
+                <span className="loader">Searching...</span> // Updated text
               ) : (
                 'Test SERP'
               )}
