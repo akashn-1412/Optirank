@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import DashboardContent from './components/DashboardContent';
 import SerpAnalysis from './components/SerpAnalysis';
+import SEOAnalysis from './components/SEOAnalysis';
+import KeywordAnalyser from './components/keyword';
 
 function App() {
   
@@ -15,6 +17,8 @@ function App() {
       <main className="flex-1 p-6">
         <DashboardContent activeNav={activeNav} darkMode={darkMode} />      
         <SerpAnalysis activeNav={activeNav} />
+        {activeNav==="ai-recommendations" && <SEOAnalysis />}
+        {/* <KeywordAnalyser activeNav={activeNav}/> */}
       </main>
     </div>
   );

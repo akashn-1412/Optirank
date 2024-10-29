@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const SerpAnalysis = ({ activeNav }) => {
+const KeywordAnalyser = ({ activeNav }) => {
   const [locationInput, setLocationInput] = useState('');
   const [website, setWebsite] = useState('');
   const [query, setQuery] = useState('');
@@ -89,7 +89,7 @@ const SerpAnalysis = ({ activeNav }) => {
   };
 
   return (
-    activeNav === 'serp-analysis' && (
+    activeNav === 'keyword-research' && (
       <div className="p-4">
         <h2 className="text-2xl font-semibold">SERP Analysis</h2>
         <p className="mt-2 text-gray-600">Enter the location and website to test SERP.</p>
@@ -191,4 +191,4 @@ const SerpAnalysis = ({ activeNav }) => {
   );
 };
 
-export default SerpAnalysis;
+export default KeywordAnalyser;
