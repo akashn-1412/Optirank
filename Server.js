@@ -3,7 +3,7 @@ import { getJson } from 'serpapi';
 
 const hostname = '127.0.0.1';
 const port = 3000;
-const allowed_domain = '*'; // Adjust with your domain or localhost
+const allowed_domain = 'optirank.vercel.app'; // Adjust with your domain or localhost
 
 const server = createServer(async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', allowed_domain);
