@@ -59,7 +59,7 @@ const SerpAnalysis = ({ activeNav }) => {
     console.log('Searching SERP for:', query, 'in', selectedCountryCode);
 
     const apiKey = 'be88bce1f01b111804b361e68da015ec83ae2cf822a80f4635f7c70cd5806e41'; // Replace with your actual API key
-    const url = `https://thingproxy.freeboard.io/fetch/https://serpapi.com/search.json?api_key=${apiKey}&q=${encodeURIComponent(query)}&gl=${selectedCountryCode}&hl=en`;
+    const url = `https://cors-anywhere.herokuapp.com/https://serpapi.com/search.json?api_key=${apiKey}&q=${encodeURIComponent(query)}&gl=${selectedCountryCode}&hl=en`;
 
     setLoading(true);
     setWebsitePosition(null); // Reset position before fetching results
