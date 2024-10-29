@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const SerpAnalysis = ({ activeNav }) => {
   const [locationInput, setLocationInput] = useState('');
   const [website, setWebsite] = useState('');
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(''); // Ensure this is only declared once
   const [locations, setLocations] = useState([]);
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [selectedCountryCode, setSelectedCountryCode] = useState('');
@@ -13,6 +13,7 @@ const SerpAnalysis = ({ activeNav }) => {
   const [websitePosition, setWebsitePosition] = useState(null); // Track website position
 
   useEffect(() => {
+    // Fetch country data for location input
     fetch('https://restcountries.com/v3.1/all')
       .then((response) => response.json())
       .then((data) => {
@@ -26,6 +27,7 @@ const SerpAnalysis = ({ activeNav }) => {
   }, []);
 
   useEffect(() => {
+    // Filter locations based on user input
     if (locationInput) {
       const filtered = locations.filter((loc) =>
         loc.name.toLowerCase().includes(locationInput.toLowerCase())
@@ -53,11 +55,10 @@ const SerpAnalysis = ({ activeNav }) => {
     const normalizedWebsite = normalizeWebsiteUrl(website);
     console.log('Searching SERP for:', query, 'in', selectedCountryCode);
 
-    const apiKey = 'be88bce1f01b111804b361e68da015ec83ae2cf822a80f4635f7c70cd5806e41';
-    const url = `https://cors-anywhere.herokuapp.com/https://serpapi.com/search.json?api_key=${apiKey}&q=${encodeURIComponent(query)}&gl=${selectedCountryCode}&hl=en`;
-
     setLoading(true);
     setWebsitePosition(null);
+
+    const url = `http://127.0.0.1:3000/?query=${encodeURIComponent(query)}&location=${encodeURIComponent(selectedCountryCode)}&website=${encodeURIComponent(normalizedWebsite)}`;
 
     fetch(url)
       .then((response) => {

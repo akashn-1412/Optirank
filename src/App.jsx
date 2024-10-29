@@ -17,7 +17,7 @@ function App() {
       <main className="flex-1 p-6">
         <DashboardContent activeNav={activeNav} darkMode={darkMode} />      
         <SerpAnalysis activeNav={activeNav} />
-        {activeNav==="ai-recommendations" && <SEOAnalysis />}
+        {/* {activeNav==="ai-recommendations" && <SEOAnalysis />} */}
         {/* <KeywordAnalyser activeNav={activeNav}/> */}
       </main>
     </div>
