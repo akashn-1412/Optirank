@@ -37,14 +37,10 @@ const SerpAnalysis = ({ activeNav }) => {
   }, [locationInput, locations]);
 
   const normalizeWebsiteUrl = (url) => {
-    // Remove whitespace and convert to lowercase
     url = url.trim().toLowerCase();
-
-    // Add protocol if not present
     if (!/^https?:\/\//.test(url)) {
       url = 'https://' + url;
     }
-
     return url;
   };
 
@@ -54,15 +50,14 @@ const SerpAnalysis = ({ activeNav }) => {
       return;
     }
 
-    // Normalize the website URL before using it
     const normalizedWebsite = normalizeWebsiteUrl(website);
     console.log('Searching SERP for:', query, 'in', selectedCountryCode);
 
-    const apiKey = 'be88bce1f01b111804b361e68da015ec83ae2cf822a80f4635f7c70cd5806e41'; // Replace with your actual API key
+    const apiKey = 'be88bce1f01b111804b361e68da015ec83ae2cf822a80f4635f7c70cd5806e41';
     const url = `https://cors-anywhere.herokuapp.com/https://serpapi.com/search.json?api_key=${apiKey}&q=${encodeURIComponent(query)}&gl=${selectedCountryCode}&hl=en`;
 
     setLoading(true);
-    setWebsitePosition(null); // Reset position before fetching results
+    setWebsitePosition(null);
 
     fetch(url)
       .then((response) => {
@@ -75,19 +70,17 @@ const SerpAnalysis = ({ activeNav }) => {
         setResults(data);
         setError('');
 
-        // Normalize the website URL for comparison
         const normalizedResultWebsite = new URL(normalizedWebsite).hostname.replace(/^www\./, '');
 
-        // Find the position of the entered website in the SERP results
         const position = data.organic_results.findIndex((result) => {
           const resultLink = new URL(result.link).hostname.replace(/^www\./, '');
           return resultLink === normalizedResultWebsite;
         });
 
         if (position !== -1) {
-          setWebsitePosition(position + 1); // Store the position in state
+          setWebsitePosition(position + 1);
         } else {
-          setWebsitePosition(null); // Not found
+          setWebsitePosition(null);
         }
       })
       .catch((error) => {
@@ -121,7 +114,7 @@ const SerpAnalysis = ({ activeNav }) => {
                     <li
                       key={loc.code}
                       className="p-2 cursor-pointer hover:bg-gray-100"
-                      onClick={() => {
+                      onMouseDown={() => {
                         setLocationInput(loc.name);
                         setSelectedCountryCode(loc.code);
                         setFilteredLocations([]);
