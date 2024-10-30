@@ -18,7 +18,8 @@ function App() {
         <DashboardContent activeNav={activeNav} darkMode={darkMode} />      
         {/* <SerpAnalysis activeNav={activeNav} /> */}
         {activeNav==="serp-analysis" && <SerpAnalysis />}
-        {/* <KeywordAnalyser activeNav={activeNav}/> */}
+        {activeNav==="ai-recommendations" && <SEOAnalysis />}
+        
       </main>
     </div>
   );
