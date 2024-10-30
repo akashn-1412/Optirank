@@ -16,8 +16,8 @@ function App() {
       <Sidebar activeNav={activeNav} setActiveNav={setActiveNav} darkMode={darkMode} setDarkMode={setDarkMode} />
       <main className="flex-1 p-6">
         <DashboardContent activeNav={activeNav} darkMode={darkMode} />      
-        <SerpAnalysis activeNav={activeNav} />
-        {/* {activeNav==="ai-recommendations" && <SEOAnalysis />} */}
+        {/* <SerpAnalysis activeNav={activeNav} /> */}
+        {activeNav==="serp-analysis" && <SerpAnalysis />}
         {/* <KeywordAnalyser activeNav={activeNav}/> */}
       </main>
     </div>
