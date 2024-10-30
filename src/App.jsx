@@ -4,6 +4,7 @@ import DashboardContent from './components/DashboardContent';
 import SerpAnalysis from './components/SerpAnalysis';
 import SEOAnalysis from './components/SEOAnalysis';
 import KeywordAnalyser from './components/keyword';
+import Competitors from './components/Competitors';
 
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
         {/* <SerpAnalysis activeNav={activeNav} /> */}
         {activeNav==="serp-analysis" && <SerpAnalysis />}
         {activeNav==="ai-recommendations" && <SEOAnalysis />}
+        {activeNav==="competitors" && <Competitors />}
         
       </main>
     </div>
