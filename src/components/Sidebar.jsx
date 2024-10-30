@@ -28,14 +28,19 @@ function Sidebar({ activeNav, setActiveNav, darkMode, setDarkMode }) {
           {isSidebarVisible && <h1 className="text-xl font-bold">SEO Dashboard</h1>}
 
           {/* Toggle Sidebar Button */}
-          <button
+          <button 
             onClick={() => setIsSidebarVisible(!isSidebarVisible)}
             className={`absolute right-0 top-4 transition-transform duration-300 ease-in-out ${
-              isSidebarVisible ? 'translate-x-0' : '-translate-x-12'
-            } bg-gray-300 hover:bg-gray-400 text-gray-700 rounded-full p-2`}
+              isSidebarVisible ? 'translate-x-0' : '-translate-x-12',
+              isSidebarVisible ? 'mx-4' : 'mr-4'
+              
+
+            }
+             bg-blue-700 hover:bg-blue-800 text-white size-9 -my-1 mx-0  rounded-sm`}
             title={isSidebarVisible ? 'Hide Sidebar' : 'Show Sidebar'}
           >
             <i className={`fas ${isSidebarVisible ? 'fa-chevron-left' : 'fa-chevron-right'}`}></i>
+            +
           </button>
         </div>
 
