@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: 'fas fa-tachometer-alt' },
-  { id: 'ai-recommendations', label: 'AI Recommendations', icon: 'fas fa-robot' },
+  { id: 'ai-recommendations', label: 'AI SEO Recommendations', icon: 'fas fa-robot' },
   { id: 'keyword-research', label: 'Keyword Research', icon: 'fas fa-key' },
   { id: 'serp-analysis', label: 'SERP Analysis', icon: 'fas fa-chart-line' },
   { id: 'competitors', label: 'Competitors', icon: 'fas fa-users' },
