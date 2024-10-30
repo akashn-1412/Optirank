@@ -5,11 +5,10 @@ const navItems = [
   { id: 'ai-recommendations', label: 'AI SEO Recommendations', icon: 'fas fa-robot' },
   { id: 'keyword-research', label: 'Keyword Research', icon: 'fas fa-key' },
   { id: 'serp-analysis', label: 'SERP Analysis', icon: 'fas fa-chart-line' },
-  { id: 'competitors', label: 'Competitors', icon: 'fas fa-users' },
+  { id: 'competitors', label: 'Competitive Analysis', icon: 'fas fa-users' },
   { id: 'rank-tracking', label: 'Rank Tracking', icon: 'fas fa-chart-bar' },
-  { id: 'alerts', label: 'Alerts', icon: 'fas fa-bell' },
-  { id: 'automation', label: 'Automation', icon: 'fas fa-cogs' },
-  { id: 'settings', label: 'Settings', icon: 'fas fa-cog' },
+  { id: 'alerts', label: 'Custom Alerts', icon: 'fas fa-bell' },
+  { id: 'automation', label: 'Task Automation', icon: 'fas fa-cogs' },
 ];
 
 function Sidebar({ activeNav, setActiveNav, darkMode, setDarkMode }) {
